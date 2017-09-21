@@ -1,0 +1,17 @@
+{
+  "extensionName": {
+    "message": "Send Link from context menu",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Add an email link item to the link context menu.",
+    "description": "Description of the extension displayed in the add-ons manager."
+  },
+
+  "emailLinkContextMenu": {
+    "message": "Email Link",
+    "description": "Text for the context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=central"
+  }
+}
+

@@ -5,7 +5,11 @@
   "version": "1.0",
   "author": "Michal Stanke",
   "icons": {
-    "32": "icon.png"
+    "16": "mail-16.svg",
+    "32": "mail-16.svg",
+    "48": "mail-16.svg",
+    "96": "mail-16.svg",
+    "128": "mail-16.svg"
   },
   "default_locale": "en",
   "permissions": [

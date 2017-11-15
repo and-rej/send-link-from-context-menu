@@ -5,7 +5,7 @@
   },
 
   "extensionDescription": {
-    "message": "Add an email link item to the link context menu.",
+    "message": "Allows to email link URL address from its context menu.",
     "description": "Description of the extension displayed in the add-ons manager."
   },
 

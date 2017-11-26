@@ -11,7 +11,17 @@
 
   "emailLinkContextMenu": {
     "message": "Email Link",
-    "description": "Text for the context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=central"
+    "description": "Text for a link context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=gecko_strings"
+  },
+
+  "emailPageLinkContextMenu": {
+    "message": "Email a link to this page",
+    "description": "Text for a page context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.tooltiptext3&repo=gecko_strings"
+  },
+
+  "emailFrameLinkContextMenu": {
+    "message": "Email a link to this frame",
+    "description": "Text for a frame context menu item."
   }
 }
 

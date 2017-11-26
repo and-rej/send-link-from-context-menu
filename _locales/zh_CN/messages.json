@@ -1,17 +1,22 @@
 {
-  "extensionName": {
-    "message": "用邮件发送链接 菜单",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "添加“用邮件发送链接”到链接的右键菜单。",
-    "description": "Description of the extension displayed in the add-ons manager."
-  },
-
-  "emailLinkContextMenu": {
-    "message": "用邮件发送链接",
-    "description": "Text for the context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=central"
-  }
+    "extensionName": {
+        "message": "用邮件发送链接 菜单",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "添加“用邮件发送链接”到链接的右键菜单。",
+        "description": "Description of the extension displayed in the add-ons manager."
+    },
+    "emailLinkContextMenu": {
+        "message": "用邮件发送链接",
+        "description": "Text for the context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=central"
+    },
+    "emailPageLinkContextMenu": {
+        "message": "",
+        "description": ""
+    },
+    "emailFrameLinkContextMenu": {
+        "message": "",
+        "description": ""
+    }
 }
-

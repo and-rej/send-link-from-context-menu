@@ -1,8 +1,9 @@
 function shareLink(url) {
     const mailtoUrl = new URL('mailto:');
     mailtoUrl.searchParams.set('body', url);
-    browser.tabs.create({url: mailtoUrl.toString(), active: false})
-        .then(tab => browser.tabs.remove(tab.id));
+    browser.tabs.getCurrent().then(
+        tab => browser.tabs.update({url: mailtoUrl.toString()})
+    );
 }
 
 browser.contextMenus.create({

@@ -1,13 +1,18 @@
 'use strict';
 
-function shareLink(url, title) {
+function shareLink(data) {
     const mailtoUrl = new URL('mailto:');
-    mailtoUrl.searchParams.set('body', url);
-    let mailtoString = mailtoUrl.toString();
-
-    if (title) {
-        mailtoString += `&subject=${title.split(' ').join('%20')}`;
+    if (data.url && data.text) {
+        mailtoUrl.searchParams.set('body', `${data.url}\n${data.text}`);
+    } else {
+        mailtoUrl.searchParams.set('body', data.url);
     }
+
+    let mailtoString = mailtoUrl.toString();
+    if (data.subject) {
+        mailtoString += `&subject=${data.subject.split(' ').join('%20')}`;
+    }
+
     browser.tabs.getCurrent().then(
         tab => browser.tabs.update({url: mailtoString})
     );
@@ -17,21 +22,24 @@ browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailLinkContextMenu'),
     contexts: ['link'],
-    onclick: (info) => shareLink(info.linkUrl),
+    onclick: (info) => shareLink({url: info.linkUrl}),
 });
 
 browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailPageLinkContextMenu'),
-    contexts: ['page', 'tab'],
+    contexts: ['page', 'tab', 'selection'],
     onclick: async (info) => {
-        const url = info.pageUrl;
-        const tabs = await browser.tabs.query({url: url});
+        const data = {};
+        data.url = info.pageUrl;
+        data.text = info.selectionText;
+
+        const tabs = await browser.tabs.query({url: data.url});
         if (tabs.length > 0) {
-            shareLink(url, tabs[0].title);
-        } else {
-            shareLink(url);
+            data.subject = tabs[0].title;
         }
+
+        shareLink(data);
     },
 });
 
@@ -39,26 +47,26 @@ browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailFrameLinkContextMenu'),
     contexts: ['frame'],
-    onclick: (info) => shareLink(info.frameUrl),
+    onclick: (info) => shareLink({url: info.frameUrl}),
 });
 
 browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailImageLinkContextMenu'),
     contexts: ['image'],
-    onclick: (info) => shareLink(info.srcUrl),
+    onclick: (info) => shareLink({url: info.srcUrl}),
 });
 
 browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailAudioLinkContextMenu'),
     contexts: ['audio'],
-    onclick: (info) => shareLink(info.srcUrl),
+    onclick: (info) => shareLink({url: info.srcUrl}),
 });
 
 browser.contextMenus.create({
     type: 'normal',
     title: browser.i18n.getMessage('emailVideoLinkContextMenu'),
     contexts: ['video'],
-    onclick: (info) => shareLink(info.srcUrl),
+    onclick: (info) => shareLink({url: info.srcUrl}),
 });

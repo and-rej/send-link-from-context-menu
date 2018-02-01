@@ -30,9 +30,5 @@
     "emailVideoLinkContextMenu": {
         "message": "Email link to this video",
         "description": "Text for video context menu item."
-    },
-    "emailTabLinkContextMenu": {
-        "message": "Email link to this tab",
-        "description": "Text for tab context menu item."
     }
 }

@@ -18,7 +18,7 @@ function shareLink(data) {
     );
 }
 
-function addContextMenus(browserInfo) {
+async function addContextMenus(browserInfo) {
     browser.contextMenus.create({
         type: 'normal',
         title: browser.i18n.getMessage('emailLinkContextMenu'),
@@ -78,8 +78,25 @@ function addContextMenus(browserInfo) {
     });
 }
 
-if (browser.runtime.getBrowserInfo) {
-    browser.runtime.getBrowserInfo().then((browserInfo) => addContextMenus(browserInfo));
-} else {
-    addContextMenus();
+async function addPageAction() {
+    browser.tabs.query({}).then((tabs) =>
+        tabs.forEach((tab) => chrome.pageAction.show(tab.id))
+    );
+    browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
+        if (changeInfo.status === 'complete') {
+            chrome.pageAction.show(tabId);
+        }
+    });
+    browser.pageAction.onClicked.addListener((tab) =>
+        shareLink({url: tab.url, subject: tab.title})
+    );
 }
+
+(async function init() {
+    let browserInfo;
+    if (browser.runtime.getBrowserInfo) {
+        browserInfo = await browser.runtime.getBrowserInfo();
+    }
+    addContextMenus(browserInfo);
+    addPageAction();
+})();

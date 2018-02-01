@@ -21,6 +21,11 @@
       "browser-polyfill.min.js",
       "background.js"
     ]
+  },
+  "page_action": {
+    "default_title": "__MSG_emailPageLinkContextMenu__",
+    "default_icon": {
+      "128": "mail-16.svg.png"
+    }
   }
 }
-

@@ -10,7 +10,7 @@ function shareLink(data) {
 
     let mailtoString = mailtoUrl.toString();
     if (data.subject) {
-        mailtoString += `&subject=${data.subject.split(' ').join('%20')}`;
+        mailtoString += `&subject=${encodeURIComponent(data.subject)}`;
     }
 
     browser.tabs.getCurrent().then(

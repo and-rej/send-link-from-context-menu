@@ -9,14 +9,30 @@
     },
     "emailLinkContextMenu": {
         "message": "Email Link",
-        "description": "Text for a link context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=gecko_strings"
+        "description": "Text for link context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.label&repo=gecko_strings"
     },
     "emailPageLinkContextMenu": {
-        "message": "Email a link to this page",
-        "description": "Text for a page context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.tooltiptext3&repo=gecko_strings"
+        "message": "Email link to this page",
+        "description": "Text for page context menu item. Should be the same as is Firefox https://transvision.mozfr.org/string/?entity=browser/chrome/browser/customizableui/customizableWidgets.properties:email-link-button.tooltiptext3&repo=gecko_strings"
     },
     "emailFrameLinkContextMenu": {
-        "message": "Email a link to this frame",
-        "description": "Text for a frame context menu item."
+        "message": "Email link to this frame",
+        "description": "Text for frame context menu item."
+    },
+    "emailImageLinkContextMenu": {
+        "message": "Email link to this image",
+        "description": "Text for image context menu item."
+    },
+    "emailAudioLinkContextMenu": {
+        "message": "Email link to this audio",
+        "description": "Text for audio context menu item."
+    },
+    "emailVideoLinkContextMenu": {
+        "message": "Email link to this video",
+        "description": "Text for video context menu item."
+    },
+    "emailTabLinkContextMenu": {
+        "message": "Email link to this tab",
+        "description": "Text for tab context menu item."
     }
 }

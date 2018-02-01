@@ -18,55 +18,68 @@ function shareLink(data) {
     );
 }
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailLinkContextMenu'),
-    contexts: ['link'],
-    onclick: (info) => shareLink({url: info.linkUrl}),
-});
+function addContextMenus(browserInfo) {
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailLinkContextMenu'),
+        contexts: ['link'],
+        onclick: (info) => shareLink({url: info.linkUrl}),
+    });
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailPageLinkContextMenu'),
-    contexts: ['page', 'tab', 'selection'],
-    onclick: async (info) => {
-        const data = {};
-        data.url = info.pageUrl;
-        data.text = info.selectionText;
+    const pageLinkContexts = ['page', 'selection'];
+    if (browserInfo && browserInfo.vendor === 'Mozilla') {
+        pageLinkContexts.push('tab');
+    }
 
-        const tabs = await browser.tabs.query({url: data.url});
-        if (tabs.length > 0) {
-            data.subject = tabs[0].title;
-        }
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailPageLinkContextMenu'),
+        contexts: pageLinkContexts,
+        onclick: async (info) => {
+            const data = {};
+            data.url = info.pageUrl;
+            data.text = info.selectionText;
 
-        shareLink(data);
-    },
-});
+            const tabs = await browser.tabs.query({url: data.url});
+            if (tabs.length > 0) {
+                data.subject = tabs[0].title;
+            }
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailFrameLinkContextMenu'),
-    contexts: ['frame'],
-    onclick: (info) => shareLink({url: info.frameUrl}),
-});
+            shareLink(data);
+        },
+    });
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailImageLinkContextMenu'),
-    contexts: ['image'],
-    onclick: (info) => shareLink({url: info.srcUrl}),
-});
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailFrameLinkContextMenu'),
+        contexts: ['frame'],
+        onclick: (info) => shareLink({url: info.frameUrl}),
+    });
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailAudioLinkContextMenu'),
-    contexts: ['audio'],
-    onclick: (info) => shareLink({url: info.srcUrl}),
-});
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailImageLinkContextMenu'),
+        contexts: ['image'],
+        onclick: (info) => shareLink({url: info.srcUrl}),
+    });
 
-browser.contextMenus.create({
-    type: 'normal',
-    title: browser.i18n.getMessage('emailVideoLinkContextMenu'),
-    contexts: ['video'],
-    onclick: (info) => shareLink({url: info.srcUrl}),
-});
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailAudioLinkContextMenu'),
+        contexts: ['audio'],
+        onclick: (info) => shareLink({url: info.srcUrl}),
+    });
+
+    browser.contextMenus.create({
+        type: 'normal',
+        title: browser.i18n.getMessage('emailVideoLinkContextMenu'),
+        contexts: ['video'],
+        onclick: (info) => shareLink({url: info.srcUrl}),
+    });
+}
+
+if (browser.runtime.getBrowserInfo) {
+    browser.runtime.getBrowserInfo().then((browserInfo) => addContextMenus(browserInfo));
+} else {
+    addContextMenus();
+}

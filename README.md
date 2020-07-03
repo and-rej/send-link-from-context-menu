@@ -4,6 +4,4 @@
 
 Add an email link item to the link context menu.
 
-## [Localization](https://poeditor.com/join/project/O3IveXFdMC)
-
 ## [License](LICENSE)

@@ -1,21 +1,26 @@
 'use strict';
 
 function shareLink(data) {
-    const mailtoUrl = new URL('mailto:');
+    const mailtoParams = {};
     if (data.url && data.text) {
-        mailtoUrl.searchParams.set('body', `${data.url}\n${data.text}`);
+        mailtoParams.body = `${data.url}\n${data.text}`;
     } else {
-        mailtoUrl.searchParams.set('body', data.url);
+        mailtoParams.body = data.url;
     }
-
-    let mailtoString = mailtoUrl.toString();
     if (data.subject) {
-        mailtoString += `&subject=${encodeURIComponent(data.subject)}`;
+        mailtoParams.subject = data.subject;
     }
 
-    browser.tabs.getCurrent().then(
-        tab => browser.tabs.update({url: mailtoString})
-    );
+    if (Object.keys(mailtoParams).length > 0) {
+        const mailtoUrl = `mailto:?${
+            Object.entries(mailtoParams)
+                .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                .join('&')
+        }`;
+        browser.tabs.getCurrent().then(
+            () => browser.tabs.update({url: mailtoUrl})
+        );
+    }
 }
 
 async function addContextMenus(browserInfo) {
@@ -36,15 +41,14 @@ async function addContextMenus(browserInfo) {
         title: browser.i18n.getMessage('emailPageLinkContextMenu'),
         contexts: pageLinkContexts,
         onclick: async (info) => {
-            const data = {};
-            data.url = info.pageUrl;
-            data.text = info.selectionText;
-
+            const data = {
+                url: info.pageUrl,
+                text: info.selectionText,
+            };
             const tabs = await browser.tabs.query({url: data.url});
             if (tabs.length > 0) {
                 data.subject = tabs[0].title;
             }
-
             shareLink(data);
         },
     });
